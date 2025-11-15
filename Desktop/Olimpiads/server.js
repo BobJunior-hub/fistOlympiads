@@ -1,10 +1,10 @@
 const express = require('express');
-const sqlite3 = require('sqlite3').verbose();
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const path = require('path');
 const bcrypt = require('bcryptjs');
 const session = require('express-session');
+const { db, dbHelpers, initTables } = require('./db');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -410,11 +410,17 @@ app.use('/api/*', (req, res) => {
   res.status(404).json({ error: 'API route not found' });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-  console.log('Available API routes:');
-  console.log('  GET  /api/contact-submissions (requires auth)');
-  console.log('  PUT  /api/contact-submissions/:id/read (requires auth)');
-  console.log('  DELETE /api/contact-submissions/:id (requires auth)');
-});
+// Export app for Netlify serverless functions
+module.exports = app;
+
+// Only start server if running locally (not in Netlify)
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log('Available API routes:');
+    console.log('  GET  /api/contact-submissions (requires auth)');
+    console.log('  PUT  /api/contact-submissions/:id/read (requires auth)');
+    console.log('  DELETE /api/contact-submissions/:id (requires auth)');
+  });
+}
 
