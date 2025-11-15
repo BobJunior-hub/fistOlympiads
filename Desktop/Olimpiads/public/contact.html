@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Olympiads Website</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script>
+        // Set theme immediately to prevent flash
+        (function() {
+            const theme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" class="logo"><i class="fas fa-trophy"></i> Olympiads</a>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li class="dropdown">
+                    <a href="/blog">Blog</a>
+                    <div class="dropdown-content">
+                        <a href="/blog?category=all">All Categories</a>
+                        <a href="/blog?category=history">Our History</a>
+                        <a href="/blog?category=study-tips">Study Tips</a>
+                        <a href="/blog?category=success-stories">Success Stories</a>
+                    </div>
+                </li>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/events">Events</a></li>
+                <li><a href="/resources">Resources</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+                <li><a href="/admin">Admin</a></li>
+                <li>
+                    <div class="theme-toggle" title="Toggle theme">
+                        <div class="theme-toggle-slider">
+                            <span class="theme-toggle-icon"><i class="fas fa-moon"></i></span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Contact Us</h1>
+            <p>We'd love to hear from you. Get in touch with any questions or inquiries.</p>
+        </section>
+
+        <section class="section">
+            <div class="card-grid">
+                <div class="card">
+                    <h3><i class="fas fa-envelope"></i> Email</h3>
+                    <p>For general inquiries:</p>
+                    <p><strong>info@olympiads.edu</strong></p>
+                    <p style="margin-top: 1rem;">For support:</p>
+                    <p><strong>support@olympiads.edu</strong></p>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-phone"></i> Phone</h3>
+                    <p>Monday - Friday: 9:00 AM - 5:00 PM</p>
+                    <p><strong>+998 12 345 67 89</strong></p>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-map-marker-alt"></i> Address</h3>
+                    <p>123 Education Street<br>
+                    Academic City, AC 12345<br>
+                    United States</p>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 3rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+                <h2 style="text-align: center; margin-bottom: 2rem;">Send us a Message</h2>
+                <form id="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="+998 12 345 67 89">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject *</label>
+                        <select id="subject" name="subject" required style="padding: 0.75rem 1rem; border-radius: 12px; border: 2px solid var(--border-color); background: var(--bg-card); color: var(--text-color); font-size: 1rem; width: 100%; cursor: pointer;">
+                            <option value="">Select a subject...</option>
+                            <option value="English">English</option>
+                            <option value="Math">Math</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">Send Message</button>
+                </form>
+                
+                <div style="margin-top: 2.5rem; padding-top: 2rem; border-top: 2px solid var(--border-color); text-align: center;">
+                    <h3 style="color: var(--text-color); margin-bottom: 1.5rem; font-size: 1.25rem; font-weight: 600;">
+                        <i class="fas fa-share-alt" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
+                        Connect With Us
+                    </h3>
+                    <div style="display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+                        <a href="https://t.me/FIST_OLYMPIADS" target="_blank" rel="noopener noreferrer" 
+                           style="display: inline-flex; align-items: center; gap: 0.75rem; padding: 1rem 2rem; 
+                                  background: linear-gradient(135deg, #0088cc, #0066aa); 
+                                  color: white; text-decoration: none; border-radius: 16px; 
+                                  font-weight: 600; font-size: 1rem; transition: all 0.3s ease;
+                                  box-shadow: 0 4px 15px rgba(0, 136, 204, 0.3);"
+                           onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0, 136, 204, 0.4)';"
+                           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0, 136, 204, 0.3)';">
+                            <i class="fab fa-telegram-plane" style="font-size: 1.5rem;"></i>
+                            <span>Telegram</span>
+                        </a>
+                        <a href="https://www.instagram.com/fist_olympiads_" target="_blank" rel="noopener noreferrer" 
+                           style="display: inline-flex; align-items: center; gap: 0.75rem; padding: 1rem 2rem; 
+                                  background: linear-gradient(135deg, #E4405F, #C13584); 
+                                  color: white; text-decoration: none; border-radius: 16px; 
+                                  font-weight: 600; font-size: 1rem; transition: all 0.3s ease;
+                                  box-shadow: 0 4px 15px rgba(228, 64, 95, 0.3);"
+                           onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(228, 64, 95, 0.4)';"
+                           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(228, 64, 95, 0.3)';">
+                            <i class="fab fa-instagram" style="font-size: 1.5rem;"></i>
+                            <span>Instagram</span>
+                        </a>
+                    </div>
+                    <p style="margin-top: 1rem; color: var(--text-light); font-size: 0.95rem;">
+                        <i class="fas fa-info-circle" style="margin-right: 0.5rem; color: var(--primary-color);"></i>
+                        <strong>Telegram:</strong> <a href="https://t.me/FIST_OLYMPIADS" target="_blank" rel="noopener noreferrer" 
+                           style="color: var(--primary-color); text-decoration: none; font-weight: 600;">t.me/FIST_OLYMPIADS</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Olympiads Website. All rights reserved.</p>
+        <div style="margin-top: 1rem; display: flex; justify-content: center; gap: 1.5rem; align-items: center;">
+            <a href="https://t.me/FIST_OLYMPIADS" target="_blank" rel="noopener noreferrer" 
+               style="color: var(--text-color); font-size: 1.5rem; transition: all 0.3s ease; opacity: 0.8;"
+               onmouseover="this.style.opacity='1'; this.style.transform='translateY(-2px)';"
+               onmouseout="this.style.opacity='0.8'; this.style.transform='translateY(0)';"
+               title="Telegram: t.me/FIST_OLYMPIADS">
+                <i class="fab fa-telegram-plane"></i>
+            </a>
+            <a href="https://www.instagram.com/fist_olympiads_" target="_blank" rel="noopener noreferrer" 
+               style="color: var(--text-color); font-size: 1.5rem; transition: all 0.3s ease; opacity: 0.8;"
+               onmouseover="this.style.opacity='1'; this.style.transform='translateY(-2px)';"
+               onmouseout="this.style.opacity='0.8'; this.style.transform='translateY(0)';"
+               title="Instagram: @fist_olympiads_">
+                <i class="fab fa-instagram"></i>
+            </a>
+        </div>
+    </footer>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/toast.js"></script>
+    <script src="/js/contact.js"></script>
+</body>
+</html>
+

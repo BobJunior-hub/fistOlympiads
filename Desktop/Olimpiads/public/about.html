@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Olympiads Website</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script>
+        // Set theme immediately to prevent flash
+        (function() {
+            const theme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" class="logo"><i class="fas fa-trophy"></i> Olympiads</a>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li class="dropdown">
+                    <a href="/blog">Blog</a>
+                    <div class="dropdown-content">
+                        <a href="/blog?category=all">All Categories</a>
+                        <a href="/blog?category=history">Our History</a>
+                        <a href="/blog?category=study-tips">Study Tips</a>
+                        <a href="/blog?category=success-stories">Success Stories</a>
+                    </div>
+                </li>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/events">Events</a></li>
+                <li><a href="/resources">Resources</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+                <li><a href="/admin">Admin</a></li>
+                <li>
+                    <div class="theme-toggle" title="Toggle theme">
+                        <div class="theme-toggle-slider">
+                            <span class="theme-toggle-icon"><i class="fas fa-moon"></i></span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>About Us</h1>
+            <p>Empowering the next generation of academic achievers</p>
+        </section>
+
+        <section class="section">
+            <div class="card">
+                <h2>Our Mission</h2>
+                <p>We are dedicated to fostering academic excellence and intellectual growth among school students through competitive Olympiad programs. Our mission is to provide a platform where students can challenge themselves, discover their potential, and achieve remarkable academic milestones.</p>
+            </div>
+
+            <div class="card" style="margin-top: 2rem;">
+                <h2>What We Offer</h2>
+                <ul style="list-style-position: inside; line-height: 2;">
+                    <li>Comprehensive Olympiad preparation resources</li>
+                    <li>Regular competitions and assessments</li>
+                    <li>Expert guidance and mentorship</li>
+                    <li>Recognition and certificates for achievements</li>
+                    <li>A supportive community of learners</li>
+                </ul>
+            </div>
+
+            <div class="card" style="margin-top: 2rem;">
+                <h2>Our Values</h2>
+                <div class="card-grid" style="margin-top: 1rem;">
+                    <div>
+                        <h3>Excellence</h3>
+                        <p>We strive for the highest standards in everything we do.</p>
+                    </div>
+                    <div>
+                        <h3>Integrity</h3>
+                        <p>We maintain honesty and ethical practices in all competitions.</p>
+                    </div>
+                    <div>
+                        <h3>Inclusivity</h3>
+                        <p>We welcome students from all backgrounds and skill levels.</p>
+                    </div>
+                    <div>
+                        <h3>Innovation</h3>
+                        <p>We continuously improve our programs and resources.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 2rem;">
+                <h2>Join Us</h2>
+                <p>Whether you're a student looking to challenge yourself, a teacher seeking resources, or a parent wanting to support your child's academic journey, we welcome you to our community. Explore our resources, participate in events, and be part of an exciting learning experience.</p>
+                <div style="margin-top: 1.5rem;">
+                    <a href="/contact" class="btn">Get in Touch</a>
+                    <a href="/resources" class="btn btn-secondary" style="margin-left: 1rem;">View Resources</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Olympiads Website. All rights reserved.</p>
+        <div style="margin-top: 1rem; display: flex; justify-content: center; gap: 1.5rem; align-items: center;">
+            <a href="https://t.me/FIST_OLYMPIADS" target="_blank" rel="noopener noreferrer" 
+               style="color: var(--text-color); font-size: 1.5rem; transition: all 0.3s ease; opacity: 0.8;"
+               onmouseover="this.style.opacity='1'; this.style.transform='translateY(-2px)';"
+               onmouseout="this.style.opacity='0.8'; this.style.transform='translateY(0)';"
+               title="Telegram: t.me/FIST_OLYMPIADS">
+                <i class="fab fa-telegram-plane"></i>
+            </a>
+            <a href="https://www.instagram.com/fist_olympiads_" target="_blank" rel="noopener noreferrer" 
+               style="color: var(--text-color); font-size: 1.5rem; transition: all 0.3s ease; opacity: 0.8;"
+               onmouseover="this.style.opacity='1'; this.style.transform='translateY(-2px)';"
+               onmouseout="this.style.opacity='0.8'; this.style.transform='translateY(0)';"
+               title="Instagram: @fist_olympiads_">
+                <i class="fab fa-instagram"></i>
+            </a>
+        </div>
+    </footer>
+
+    <script src="/js/main.js"></script>
+</body>
+</html>
+

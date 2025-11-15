@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Olympiads Website</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script>
+        // Set theme immediately to prevent flash
+        (function() {
+            const theme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" class="logo"><i class="fas fa-trophy"></i> Admin Panel</a>
+            <ul class="nav-links">
+                <li><a href="/">View Site</a></li>
+                <li><a href="#" id="logout-btn">Logout</a></li>
+                <li>
+                    <div class="theme-toggle" title="Toggle theme">
+                        <div class="theme-toggle-slider">
+                            <span class="theme-toggle-icon"><i class="fas fa-moon"></i></span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="admin-container">
+        <div class="admin-header">
+            <h1>Admin Dashboard</h1>
+        </div>
+
+        <div class="admin-tabs">
+            <button class="admin-tab active" data-tab="blog">Blog Posts</button>
+            <button class="admin-tab" data-tab="events">Events</button>
+            <button class="admin-tab" data-tab="resources">Resources</button>
+            <button class="admin-tab" data-tab="dates">Olympiad Dates</button>
+            <button class="admin-tab" data-tab="contacts">Contact Submissions <span id="unread-count" style="background: var(--error-color); color: white; padding: 0.25rem 0.5rem; border-radius: 12px; font-size: 0.75rem; margin-left: 0.5rem;"></span></button>
+        </div>
+
+        <!-- Blog Posts Tab -->
+        <div class="admin-content active" id="blog-content">
+            <div style="margin-bottom: 2rem;">
+                <button class="btn" onclick="showBlogForm()">Add New Blog Post</button>
+            </div>
+            <div id="blog-form-container" style="display: none; margin-bottom: 2rem;">
+                <div class="card">
+                    <h2>Add/Edit Blog Post</h2>
+                    <form id="blog-form" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" name="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Content</label>
+                            <textarea name="content" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select name="category" required>
+                                <option value="history">Our History</option>
+                                <option value="study-tips">Study Tips</option>
+                                <option value="success-stories">Success Stories</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Author</label>
+                            <input type="text" name="author">
+                        </div>
+                        <div class="form-group">
+                            <label>Image</label>
+                            <input type="file" name="image" accept="image/*">
+                        </div>
+                        <button type="submit" class="btn">Save Blog Post</button>
+                        <button type="button" class="btn btn-secondary" onclick="hideBlogForm()">Cancel</button>
+                    </form>
+                </div>
+            </div>
+            <div id="blog-list"></div>
+        </div>
+
+        <!-- Events Tab -->
+        <div class="admin-content" id="events-content">
+            <div style="margin-bottom: 2rem;">
+                <button class="btn" onclick="showEventForm()">Add New Event</button>
+            </div>
+            <div id="event-form-container" style="display: none; margin-bottom: 2rem;">
+                <div class="card">
+                    <h2>Add/Edit Event</h2>
+                    <form id="event-form" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" name="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea name="description"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Event Date</label>
+                            <input type="date" name="event_date" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Event Type</label>
+                            <select name="event_type" required>
+                                <option value="competition">Competition</option>
+                                <option value="workshop">Workshop</option>
+                                <option value="ceremony">Award Ceremony</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Event Photo</label>
+                            <input type="file" name="image" accept="image/*">
+                        </div>
+                        <div class="form-group">
+                            <label>Certificate (PDF/Image)</label>
+                            <input type="file" name="certificate" accept=".pdf,image/*">
+                        </div>
+                        <button type="submit" class="btn">Save Event</button>
+                        <button type="button" class="btn btn-secondary" onclick="hideEventForm()">Cancel</button>
+                    </form>
+                </div>
+            </div>
+            <div id="events-list"></div>
+        </div>
+
+        <!-- Resources Tab -->
+        <div class="admin-content" id="resources-content">
+            <div style="margin-bottom: 2rem;">
+                <button class="btn" onclick="showResourceForm()">Add New Resource</button>
+            </div>
+            <div id="resource-form-container" style="display: none; margin-bottom: 2rem;">
+                <div class="card">
+                    <h2>Add/Edit Resource</h2>
+                    <form id="resource-form" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" name="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea name="description"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Resource Type</label>
+                            <select name="resource_type" required>
+                                <option value="practice-problems">Practice Problems</option>
+                                <option value="study-guide">Study Guide</option>
+                                <option value="video">Video</option>
+                                <option value="past-papers">Past Papers</option>
+                                <option value="formula-sheet">Formula Sheet</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>File</label>
+                            <input type="file" name="file" required>
+                        </div>
+                        <button type="submit" class="btn">Save Resource</button>
+                        <button type="button" class="btn btn-secondary" onclick="hideResourceForm()">Cancel</button>
+                    </form>
+                </div>
+            </div>
+            <div id="resources-list"></div>
+        </div>
+
+        <!-- Olympiad Dates Tab -->
+        <div class="admin-content" id="dates-content">
+            <div style="margin-bottom: 2rem;">
+                <button class="btn" onclick="showDateForm()">Add New Olympiad Date</button>
+            </div>
+            <div id="date-form-container" style="display: none; margin-bottom: 2rem;">
+                <div class="card">
+                    <h2>Add/Edit Olympiad Date</h2>
+                    <form id="date-form">
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" name="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Date</label>
+                            <input type="date" name="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea name="description"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Registration Deadline</label>
+                            <input type="date" name="registration_deadline">
+                        </div>
+                        <button type="submit" class="btn">Save Date</button>
+                        <button type="button" class="btn btn-secondary" onclick="hideDateForm()">Cancel</button>
+                    </form>
+                </div>
+            </div>
+            <div id="dates-list"></div>
+        </div>
+
+        <!-- Contact Submissions Tab -->
+        <div class="admin-content" id="contacts-content">
+            <div style="margin-bottom: 2rem;">
+                <h2 style="margin-bottom: 1rem;">Contact Form Submissions / Exam Applications</h2>
+                <p style="color: var(--text-light); margin-bottom: 1.5rem;">View all contact form submissions and exam applications from visitors.</p>
+                <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; margin-bottom: 1.5rem;">
+                    <label for="subject-filter" style="color: var(--text-color); font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-filter"></i> Filter by Subject:
+                    </label>
+                    <select id="subject-filter" style="padding: 0.75rem 1.5rem; border-radius: 12px; border: 2px solid var(--border-color); background: var(--bg-card); color: var(--text-color); font-size: 1rem; min-width: 250px; cursor: pointer;">
+                        <option value="all">All Subjects</option>
+                    </select>
+                    <button id="clear-filter-btn" class="btn btn-secondary" style="display: none; padding: 0.75rem 1.5rem;" onclick="clearSubjectFilter()">
+                        <i class="fas fa-times"></i> Clear Filter
+                    </button>
+                </div>
+            </div>
+            <div id="contacts-list">
+                <div class="loading">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/toast.js"></script>
+    <script src="/js/confirm-dialog.js"></script>
+    <script src="/js/admin.js"></script>
+</body>
+</html>
+

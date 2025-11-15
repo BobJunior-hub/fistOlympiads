@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - Olympiads Website</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script>
+        // Set theme immediately to prevent flash
+        (function() {
+            const theme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" class="logo"><i class="fas fa-trophy"></i> Olympiads</a>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li class="dropdown">
+                    <a href="/blog">Blog</a>
+                    <div class="dropdown-content">
+                        <a href="/blog?category=all">All Categories</a>
+                        <a href="/blog?category=history">Our History</a>
+                        <a href="/blog?category=study-tips">Study Tips</a>
+                        <a href="/blog?category=success-stories">Success Stories</a>
+                    </div>
+                </li>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/events">Events</a></li>
+                <li><a href="/resources">Resources</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+                <li><a href="/admin">Admin</a></li>
+                <li>
+                    <div class="theme-toggle" title="Toggle theme">
+                        <div class="theme-toggle-slider">
+                            <span class="theme-toggle-icon"><i class="fas fa-moon"></i></span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Events & Activities</h1>
+            <p>Explore our past achievements and upcoming events</p>
+        </section>
+
+        <section class="section">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <label for="event-filter" style="margin-right: 1rem; color: var(--text-color); font-weight: 600;">Filter by Type:</label>
+                <select id="event-filter" style="padding: 0.5rem 1rem; border-radius: 12px; border: 2px solid var(--border-color); background: var(--bg-secondary); color: var(--text-color);">
+                    <option value="all">All Events</option>
+                    <option value="upcoming">Upcoming</option>
+                    <option value="past">Past Events</option>
+                    <option value="competition">Competitions</option>
+                    <option value="workshop">Workshops</option>
+                    <option value="ceremony">Award Ceremonies</option>
+                </select>
+            </div>
+
+            <div id="events-container">
+                <div class="loading">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Olympiads Website. All rights reserved.</p>
+        <div style="margin-top: 1rem; display: flex; justify-content: center; gap: 1.5rem; align-items: center;">
+            <a href="https://t.me/FIST_OLYMPIADS" target="_blank" rel="noopener noreferrer" 
+               style="color: var(--text-color); font-size: 1.5rem; transition: all 0.3s ease; opacity: 0.8;"
+               onmouseover="this.style.opacity='1'; this.style.transform='translateY(-2px)';"
+               onmouseout="this.style.opacity='0.8'; this.style.transform='translateY(0)';"
+               title="Telegram: t.me/FIST_OLYMPIADS">
+                <i class="fab fa-telegram-plane"></i>
+            </a>
+            <a href="https://www.instagram.com/fist_olympiads_" target="_blank" rel="noopener noreferrer" 
+               style="color: var(--text-color); font-size: 1.5rem; transition: all 0.3s ease; opacity: 0.8;"
+               onmouseover="this.style.opacity='1'; this.style.transform='translateY(-2px)';"
+               onmouseout="this.style.opacity='0.8'; this.style.transform='translateY(0)';"
+               title="Instagram: @fist_olympiads_">
+                <i class="fab fa-instagram"></i>
+            </a>
+        </div>
+    </footer>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/events.js"></script>
+</body>
+</html>
+
