@@ -3,6 +3,19 @@
   publish = "public"
   functions = "netlify/functions"
 
+# Serve static files directly
+[[redirects]]
+  from = "/uploads/*"
+  to = "/uploads/:splat"
+  status = 200
+
+# Serve API routes through serverless function
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/server"
+  status = 200
+
+# Serve all other routes through serverless function
 [[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"

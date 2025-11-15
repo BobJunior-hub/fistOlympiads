@@ -24,12 +24,15 @@ app.use(session({
 }));
 
 // Serve static files, but exclude /api routes
-app.use((req, res, next) => {
-  if (req.path.startsWith('/api/')) {
-    return next();
-  }
-  express.static('public')(req, res, next);
-});
+// In Netlify, static files are served automatically, so we only serve them locally
+if (process.env.NETLIFY !== 'true') {
+  app.use((req, res, next) => {
+    if (req.path.startsWith('/api/')) {
+      return next();
+    }
+    express.static('public')(req, res, next);
+  });
+}
 
 // Configure multer for file uploads
 const storage = multer.diskStorage({
@@ -44,77 +47,9 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// Initialize database
-const db = new sqlite3.Database('olympiads.db');
-
-// Create tables
-db.serialize(() => {
-  // Admin users table
-  db.run(`CREATE TABLE IF NOT EXISTS admins (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT UNIQUE NOT NULL,
-    password TEXT NOT NULL
-  )`);
-
-  // Blog posts table
-  db.run(`CREATE TABLE IF NOT EXISTS blog_posts (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    title TEXT NOT NULL,
-    content TEXT NOT NULL,
-    category TEXT NOT NULL,
-    author TEXT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    image_url TEXT
-  )`);
-
-  // Events table
-  db.run(`CREATE TABLE IF NOT EXISTS events (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    title TEXT NOT NULL,
-    description TEXT,
-    event_date DATE,
-    event_type TEXT,
-    image_url TEXT,
-    certificate_url TEXT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  )`);
-
-  // Resources table
-  db.run(`CREATE TABLE IF NOT EXISTS resources (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    title TEXT NOT NULL,
-    description TEXT,
-    file_url TEXT,
-    resource_type TEXT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  )`);
-
-  // Olympiad dates table
-  db.run(`CREATE TABLE IF NOT EXISTS olympiad_dates (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    title TEXT NOT NULL,
-    date DATE NOT NULL,
-    description TEXT,
-    registration_deadline DATE,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  )`);
-
-  // Contact submissions table
-  db.run(`CREATE TABLE IF NOT EXISTS contact_submissions (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    email TEXT NOT NULL,
-    phone TEXT NOT NULL,
-    subject TEXT NOT NULL,
-    message TEXT NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    read BOOLEAN DEFAULT 0
-  )`);
-
-  // Create default admin (username: admin, password: admin123)
-  const defaultPassword = bcrypt.hashSync('admin123', 10);
-  db.run(`INSERT OR IGNORE INTO admins (username, password) VALUES (?, ?)`, 
-    ['admin', defaultPassword]);
+// Initialize database tables (handled by db.js)
+initTables().catch(err => {
+  console.error('Failed to initialize database:', err);
 });
 
 // Authentication middleware
