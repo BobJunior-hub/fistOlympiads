@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 48" fill="none">
+  <!-- Icon mark: red rounded square -->
+  <rect x="0" y="0" width="48" height="48" rx="11" fill="#E5202A"/>
+
+  <!-- Water drop (the "dot" before ht) -->
+  <path d="M14 13 L10 22 Q10 27 14 27 Q18 27 18 22 Z" fill="white"/>
+
+  <!-- Letter h -->
+  <rect x="21" y="12" width="3.5" height="18" rx="1.5" fill="white"/>
+  <path d="M24.5 22 Q24.5 18.5 30 18.5 Q33.5 18.5 33.5 22 L33.5 30 L30 30 L30 22.5 Q30 21.5 28 21.5 Q24.5 21.5 24.5 22 Z" fill="white"/>
+
+  <!-- Letter t -->
+  <rect x="36" y="12" width="3.5" height="18" rx="1.5" fill="white"/>
+  <rect x="32.5" y="18" width="10" height="3" rx="1.5" fill="white"/>
+
+  <!-- Wordmark -->
+  <text x="60" y="33" font-family="'Geist', -apple-system, BlinkMacSystemFont, sans-serif" font-weight="700" font-size="22" fill="#0F0F10" letter-spacing="-0.5">halftank</text>
+</svg>

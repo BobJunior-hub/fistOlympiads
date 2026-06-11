@@ -1,0 +1,1810 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>halftank — fueling efficiency, driving savings</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --red: #E5202A;
+    --red-700: #B81A22;
+    --red-50: #FCE9EA;
+    --ink: #0F0F10;
+    --ink-soft: #1A1A1B;
+    --grey-900: #2B2B2D;
+    --grey-700: #4A4A4D;
+    --grey-500: #7A7A7C;
+    --grey-300: #C9C8C3;
+    --grey-200: #E5E4DF;
+    --grey-100: #EFEEE9;
+    --paper: #F7F6F3;
+    --white: #FFFFFF;
+    --radius: 14px;
+    --radius-lg: 22px;
+    --maxw: 1280px;
+    --gutter: clamp(20px, 4vw, 56px);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Geist", ui-sans-serif, system-ui, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "ss01", "cv11";
+    line-height: 1.45;
+  }
+  .mono { font-family: "Geist Mono", ui-monospace, monospace; }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+  button { font: inherit; cursor: pointer; }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding-left: var(--gutter); padding-right: var(--gutter); }
+
+  /* ----- NAV ----- */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(247, 246, 243, 0.85);
+    backdrop-filter: saturate(140%) blur(12px);
+    -webkit-backdrop-filter: saturate(140%) blur(12px);
+    border-bottom: 1px solid rgba(15, 15, 16, 0.06);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 72px;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand img { height: 28px; width: auto; }
+  .nav-links { display: flex; gap: 30px; }
+  .nav-links a {
+    font-size: 14px; font-weight: 500; color: var(--grey-700);
+    transition: color .15s ease;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--ink); color: var(--white);
+    padding: 10px 18px; border-radius: 999px; font-size: 14px; font-weight: 500;
+    border: 0;
+    transition: background .15s ease, transform .15s ease;
+  }
+  .nav-cta:hover { background: var(--red); }
+  .nav-cta .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--red); }
+  .nav-cta:hover .dot { background: var(--white); }
+  @media (max-width: 800px) { .nav-links { display: none; } }
+
+  /* ----- HERO ----- */
+  .hero { padding: clamp(48px, 8vw, 110px) 0 clamp(40px, 6vw, 80px); }
+  .hero-grid {
+    display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(28px, 5vw, 80px);
+    align-items: center;
+  }
+  @media (max-width: 960px) { .hero-grid { grid-template-columns: 1fr; } }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 12px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--grey-700);
+    background: var(--white); border: 1px solid var(--grey-200);
+    padding: 8px 14px; border-radius: 999px;
+  }
+  .eyebrow .pulse {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--red);
+    box-shadow: 0 0 0 0 rgba(229, 32, 42, 0.5);
+    animation: pulse 1.8s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(229, 32, 42, 0.5); }
+    70% { box-shadow: 0 0 0 8px rgba(229, 32, 42, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(229, 32, 42, 0); }
+  }
+
+  h1.display {
+    font-size: clamp(44px, 7.2vw, 96px);
+    line-height: 0.96;
+    letter-spacing: -0.035em;
+    font-weight: 700;
+    margin: 22px 0 22px;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+  h1.display em {
+    font-style: normal;
+    color: var(--red);
+    position: relative;
+  }
+  h1.display em::after {
+    content: "";
+    position: absolute; left: 0; right: 0; bottom: 0.08em;
+    height: 0.18em; background: var(--red); opacity: 0.12;
+    border-radius: 4px;
+  }
+  .lede {
+    font-size: clamp(17px, 1.6vw, 20px);
+    color: var(--grey-700);
+    max-width: 540px;
+    text-wrap: pretty;
+    margin: 0 0 32px;
+  }
+
+  .cta-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .store-btn {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: var(--ink); color: var(--white);
+    padding: 14px 22px 14px 18px;
+    border-radius: 14px; border: 0;
+    text-align: left;
+    transition: transform .15s ease, background .15s ease;
+  }
+  .store-btn:hover { transform: translateY(-1px); background: var(--red); }
+  .store-btn .glyph {
+    width: 22px; height: 22px; display: grid; place-items: center;
+  }
+  .store-btn small { display: block; font-size: 11px; opacity: 0.7; letter-spacing: 0.06em; text-transform: uppercase; }
+  .store-btn strong { display: block; font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
+
+  .meta-row {
+    margin-top: 28px;
+    display: flex; gap: 22px; flex-wrap: wrap;
+    font-size: 13px; color: var(--grey-700);
+  }
+  .meta-row span { display: inline-flex; align-items: center; gap: 8px; }
+  .meta-row .check {
+    width: 14px; height: 14px; border-radius: 50%; background: var(--ink); color: var(--white);
+    display: inline-grid; place-items: center; font-size: 9px; font-weight: 700;
+  }
+
+  /* ----- PHONE MOCKUP ----- */
+  .phone-wrap { position: relative; display: grid; place-items: center; }
+  .phone {
+    width: min(340px, 92%); aspect-ratio: 9 / 19;
+    background: var(--ink);
+    border-radius: 44px;
+    padding: 12px;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.08) inset,
+      0 30px 60px -20px rgba(15, 15, 16, 0.35),
+      0 8px 24px -12px rgba(15, 15, 16, 0.2);
+    position: relative;
+    z-index: 2;
+  }
+  .phone-screen {
+    width: 100%; height: 100%;
+    background: var(--paper);
+    border-radius: 32px;
+    overflow: hidden;
+    position: relative;
+    display: flex; flex-direction: column;
+  }
+  .phone-screen--shot { background: var(--white); }
+  .phone-screen--shot img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+
+  /* ----- HERO CAROUSEL ----- */
+  .phone-screen--carousel { background: var(--white); position: relative; }
+  .carousel-track {
+    display: flex; height: 100%; width: 100%;
+    transition: transform .7s cubic-bezier(.65,.02,.18,1);
+    will-change: transform;
+  }
+  .carousel-slide {
+    flex: 0 0 100%; width: 100%; height: 100%;
+    overflow: hidden;
+  }
+  .carousel-slide img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: top center;
+    display: block;
+  }
+  .carousel-dots {
+    position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%);
+    display: flex; gap: 6px; z-index: 4;
+    padding: 6px 10px; border-radius: 999px;
+    background: rgba(15,15,16,0.32);
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  }
+  .carousel-dots button {
+    width: 6px; height: 6px; border-radius: 999px; border: 0; padding: 0;
+    background: rgba(255,255,255,0.5); cursor: pointer;
+    transition: width .35s ease, background .35s ease;
+  }
+  .carousel-dots button.active { width: 18px; background: var(--white); }
+  .notch {
+    position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+    width: 90px; height: 26px; background: var(--ink); border-radius: 999px; z-index: 3;
+  }
+  .screen-top {
+    padding: 50px 18px 14px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--white);
+    border-bottom: 1px solid var(--grey-200);
+  }
+  .input-pill {
+    flex: 1; display: flex; align-items: center; gap: 10px;
+    background: var(--grey-100); border-radius: 12px; padding: 10px 12px;
+    font-size: 13px; color: var(--ink); font-weight: 500;
+  }
+  .input-pill .pin { width: 8px; height: 8px; background: var(--red); border-radius: 50%; }
+  .input-pill .caret { width: 1px; height: 14px; background: var(--ink); margin-left: auto; animation: blink 1.2s steps(2) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .map {
+    flex: 1; position: relative;
+    background:
+      linear-gradient(180deg, #EFEEE9 0%, #E8E7E1 100%);
+    overflow: hidden;
+  }
+  .map::before {
+    content: ""; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(90deg, rgba(15,15,16,0.04) 1px, transparent 1px),
+      linear-gradient(0deg, rgba(15,15,16,0.04) 1px, transparent 1px);
+    background-size: 28px 28px;
+    mask-image: radial-gradient(circle at 50% 40%, #000 40%, transparent 75%);
+  }
+  .route {
+    position: absolute; top: 18%; left: -8%; width: 116%; height: 60%;
+    pointer-events: none;
+  }
+  .route svg { width: 100%; height: 100%; overflow: visible; }
+  .route .path {
+    stroke: var(--red); stroke-width: 5; fill: none;
+    stroke-linecap: round; stroke-linejoin: round;
+    stroke-dasharray: 800;
+    stroke-dashoffset: 800;
+    animation: draw 3.4s ease-out infinite;
+  }
+  .route .ghost {
+    stroke: rgba(229, 32, 42, 0.18); stroke-width: 9; fill: none;
+    stroke-linecap: round;
+  }
+  @keyframes draw {
+    0% { stroke-dashoffset: 800; }
+    55%, 100% { stroke-dashoffset: 0; }
+  }
+  .pin {
+    position: absolute; transform: translate(-50%, -100%);
+    display: grid; place-items: center;
+  }
+  .pin .bubble {
+    background: var(--white); border: 1px solid var(--grey-200);
+    border-radius: 10px; padding: 6px 10px; font-size: 11px; font-weight: 600;
+    box-shadow: 0 6px 14px -8px rgba(0,0,0,0.25);
+    white-space: nowrap;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .pin .bubble .price { color: var(--red); font-family: "Geist Mono", monospace; }
+  .pin .stem { width: 2px; height: 8px; background: var(--ink); }
+  .pin .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--ink); border: 3px solid var(--white); box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
+  .pin.best .dot { background: var(--red); }
+  .pin.best .bubble { border-color: var(--red); }
+
+  .screen-bottom {
+    background: var(--white);
+    padding: 14px 16px 22px;
+    border-top: 1px solid var(--grey-200);
+  }
+  .station-card {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 0;
+  }
+  .station-card + .station-card { border-top: 1px solid var(--grey-100); }
+  .station-logo {
+    width: 38px; height: 38px; border-radius: 10px;
+    background: var(--grey-100);
+    display: grid; place-items: center;
+    font-size: 11px; font-weight: 700; color: var(--grey-500);
+    font-family: "Geist Mono", monospace;
+  }
+  .station-logo.brand-red { background: var(--red); color: var(--white); }
+  .station-meta { flex: 1; min-width: 0; }
+  .station-name { font-size: 13px; font-weight: 600; color: var(--ink); }
+  .station-sub { font-size: 11px; color: var(--grey-500); }
+  .station-price { font-family: "Geist Mono", monospace; font-size: 14px; font-weight: 600; color: var(--ink); }
+  .station-discount { font-size: 10px; color: var(--red); font-weight: 600; }
+
+  /* floating bits next to phone */
+  .badge-float {
+    position: absolute; z-index: 3;
+    background: var(--white); border: 1px solid var(--grey-200);
+    border-radius: 16px; padding: 14px 16px;
+    box-shadow: 0 18px 30px -18px rgba(15,15,16,0.25);
+    display: flex; gap: 12px; align-items: center;
+  }
+  .badge-float .icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: var(--red); color: var(--white);
+    display: grid; place-items: center; font-weight: 700;
+    font-family: "Geist Mono", monospace; font-size: 13px;
+  }
+  .badge-float small { display: block; font-size: 11px; color: var(--grey-500); }
+  .badge-float strong { display: block; font-size: 14px; font-weight: 600; }
+  .badge-savings { top: 12%; left: -8%; }
+  .badge-alert { bottom: 14%; right: -10%; }
+  @media (max-width: 1100px) { .badge-savings, .badge-alert { display: none; } }
+
+  /* ----- STATS STRIP ----- */
+  .stats {
+    margin-top: clamp(40px, 6vw, 80px);
+    border-top: 1px solid var(--grey-200);
+    border-bottom: 1px solid var(--grey-200);
+    padding: 28px 0;
+  }
+  .stats-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+  }
+  @media (max-width: 800px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+  .stat .num {
+    font-size: clamp(28px, 3.6vw, 44px); font-weight: 600;
+    letter-spacing: -0.02em; line-height: 1; color: var(--ink);
+    font-feature-settings: "tnum";
+  }
+  .stat .num .red { color: var(--red); }
+  .stat .lbl { margin-top: 8px; font-size: 13px; color: var(--grey-500); letter-spacing: 0.02em; }
+
+  /* ----- SECTION HEADERS ----- */
+  section { padding: clamp(64px, 9vw, 130px) 0; }
+  .sect-head { max-width: 760px; margin-bottom: clamp(36px, 5vw, 64px); }
+  .sect-eyebrow {
+    display: inline-block; font-family: "Geist Mono", monospace;
+    font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--red); margin-bottom: 16px;
+  }
+  .sect-eyebrow::before { content: "— "; }
+  h2 {
+    font-size: clamp(34px, 4.8vw, 64px);
+    line-height: 1.02; letter-spacing: -0.028em;
+    font-weight: 700; margin: 0 0 18px; text-wrap: balance;
+  }
+  .sect-lede { font-size: clamp(16px, 1.4vw, 19px); color: var(--grey-700); text-wrap: pretty; max-width: 620px; }
+
+  /* ----- HOW IT WORKS ----- */
+  .steps {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  @media (max-width: 900px) { .steps { grid-template-columns: 1fr; } }
+  .step {
+    background: var(--white);
+    border: 1px solid var(--grey-200);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    display: flex; flex-direction: column;
+    min-height: 340px;
+    position: relative;
+    overflow: hidden;
+    transition: transform .25s ease, border-color .25s ease;
+  }
+  .step:hover { transform: translateY(-2px); border-color: var(--grey-300); }
+  .step-num {
+    font-family: "Geist Mono", monospace;
+    font-size: 13px; color: var(--red); margin-bottom: 16px;
+  }
+  .step h3 {
+    font-size: 22px; font-weight: 600; letter-spacing: -0.015em;
+    margin: 0 0 8px;
+  }
+  .step p { color: var(--grey-700); font-size: 15px; margin: 0; }
+  .step-visual {
+    margin-top: auto;
+    padding-top: 24px;
+  }
+  .step-visual .frame {
+    background: var(--paper); border-radius: 12px;
+    padding: 14px; border: 1px solid var(--grey-200);
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .step-visual .field {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 12px; background: var(--white);
+    border-radius: 8px; border: 1px solid var(--grey-200);
+    font-size: 13px; font-weight: 500;
+  }
+  .step-visual .field .pin { width: 8px; height: 8px; border-radius: 50%; background: var(--ink); }
+  .step-visual .field.dest .pin { background: var(--red); }
+  .step-visual .field .caret { margin-left: auto; width: 1px; height: 14px; background: var(--ink); animation: blink 1.2s steps(2) infinite; }
+
+  .step-visual .map-mini {
+    height: 120px; border-radius: 10px;
+    background:
+      linear-gradient(180deg, #EFEEE9 0%, #E8E7E1 100%);
+    position: relative; overflow: hidden;
+  }
+  .step-visual .map-mini::before {
+    content: ""; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(90deg, rgba(15,15,16,0.05) 1px, transparent 1px),
+      linear-gradient(0deg, rgba(15,15,16,0.05) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  .step-visual .map-mini svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+  .step-visual .compare {
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .step-visual .compare .row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 10px; background: var(--white);
+    border-radius: 8px; border: 1px solid var(--grey-200);
+    font-size: 12px;
+  }
+  .step-visual .compare .row.best {
+    background: var(--red); color: var(--white); border-color: var(--red);
+  }
+  .step-visual .compare .row .name { flex: 1; font-weight: 500; }
+  .step-visual .compare .row .price { font-family: "Geist Mono", monospace; font-weight: 600; }
+  .step-visual .compare .row .tag {
+    font-size: 10px; padding: 2px 6px; border-radius: 4px;
+    background: rgba(255,255,255,0.18); font-weight: 600;
+  }
+  .step-visual .compare .row:not(.best) .tag { background: var(--grey-100); color: var(--grey-700); }
+
+  /* ----- FEATURES ----- */
+  .features {
+    background: var(--ink);
+    color: var(--white);
+    border-radius: clamp(20px, 3vw, 32px);
+    margin: 0 var(--gutter);
+    padding: clamp(56px, 7vw, 96px) 0;
+  }
+  .features .wrap { padding-left: clamp(24px, 4vw, 56px); padding-right: clamp(24px, 4vw, 56px); }
+  .features h2 { color: var(--white); }
+  .features .sect-lede { color: rgba(255,255,255,0.65); }
+  .features .sect-eyebrow { color: var(--red); }
+  .feat-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  @media (max-width: 900px) { .feat-grid { grid-template-columns: 1fr; } }
+  .feat {
+    background: var(--ink);
+    padding: 32px 28px;
+    display: flex; flex-direction: column; gap: 14px;
+    min-height: 230px;
+  }
+  .feat .glyph {
+    width: 44px; height: 44px; border-radius: 10px;
+    background: rgba(229, 32, 42, 0.14); color: var(--red);
+    display: grid; place-items: center;
+    font-family: "Geist Mono", monospace; font-weight: 600;
+  }
+  .feat h3 { font-size: 19px; font-weight: 600; margin: 4px 0 0; letter-spacing: -0.01em; }
+  .feat p { color: rgba(255,255,255,0.6); font-size: 14px; margin: 0; line-height: 1.55; }
+
+  /* ----- SAVINGS / BIG NUMBER ----- */
+  .savings-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 80px);
+    align-items: center;
+  }
+  @media (max-width: 900px) { .savings-grid { grid-template-columns: 1fr; } }
+  .big-num {
+    font-size: clamp(110px, 18vw, 240px);
+    font-weight: 700; letter-spacing: -0.05em; line-height: 0.86;
+    color: var(--red);
+    font-feature-settings: "tnum";
+  }
+  .big-num .sub {
+    display: block; font-size: clamp(14px, 1.2vw, 18px);
+    color: var(--grey-500); margin-top: 12px;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    font-family: "Geist Mono", monospace;
+    font-weight: 400;
+  }
+
+  /* ----- SAVINGS BREAKDOWN (left) ----- */
+  .savings-breakdown { display: flex; flex-direction: column; }
+  .sb-pct {
+    display: flex; align-items: flex-start; flex-wrap: wrap;
+    font-size: clamp(92px, 14vw, 184px);
+    font-weight: 700; letter-spacing: -0.05em; line-height: 0.84;
+    color: var(--red);
+    font-feature-settings: "tnum"; font-variant-numeric: tabular-nums;
+  }
+  .sb-pct .sign { font-size: 0.46em; margin-top: 0.16em; }
+  .sb-sub {
+    flex-basis: 100%;
+    font-size: clamp(13px, 1.1vw, 16px);
+    color: var(--grey-500); margin-top: 14px;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    font-family: "Geist Mono", monospace; font-weight: 400;
+  }
+  .sb-lines { margin-top: clamp(26px, 4vw, 42px); max-width: 480px; }
+  .sb-line {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 18px;
+    padding: 15px 0; border-top: 1px solid var(--grey-200);
+  }
+  .sb-line:first-child { border-top: 0; padding-top: 0; }
+  .sb-label { font-size: 15px; color: var(--grey-700); font-weight: 500; }
+  .sb-note { font-family: "Geist Mono", monospace; font-size: 11px; color: var(--grey-500); margin-left: 4px; }
+  .sb-val { font-family: "Geist Mono", monospace; font-size: 18px; font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .sb-val s { color: var(--grey-300); text-decoration-color: var(--grey-300); font-weight: 500; margin-right: 8px; font-size: 0.82em; }
+  .sb-val--red { color: var(--red); }
+  .sb-line--total {
+    border-top: 2px solid var(--ink); margin-top: 8px; padding-top: 20px;
+    align-items: center;
+  }
+  .sb-line--total .sb-label { font-size: 16px; font-weight: 600; color: var(--ink); }
+  .sb-total { font-size: clamp(30px, 3.4vw, 42px); font-weight: 700; color: var(--red); letter-spacing: -0.02em; font-family: "Geist", sans-serif; }
+  .sb-pct.in-glow { animation: numGlow 2s ease; }
+  .calc-card {
+    background: var(--white); border: 1px solid var(--grey-200);
+    border-radius: var(--radius-lg); padding: 28px;
+  }
+  .calc-card h4 { margin: 0 0 4px; font-size: 14px; font-weight: 500; color: var(--grey-500); letter-spacing: 0.04em; text-transform: uppercase; font-family: "Geist Mono", monospace; }
+  .calc-card .calc-out { font-size: clamp(40px, 5vw, 56px); font-weight: 700; letter-spacing: -0.02em; line-height: 1; margin: 8px 0 20px; }
+  .calc-card .calc-out .unit { color: var(--grey-500); font-weight: 500; font-size: 0.5em; margin-left: 6px; }
+  .calc-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+  .calc-row label { font-size: 13px; color: var(--grey-700); font-weight: 500; }
+  .calc-row output { font-family: "Geist Mono", monospace; font-size: 13px; color: var(--ink); font-weight: 600; }
+  .calc-card input[type="range"] {
+    width: 100%; height: 4px; appearance: none; background: var(--grey-200); border-radius: 999px; margin: 0;
+  }
+  .calc-card input[type="range"]::-webkit-slider-thumb {
+    appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--red);
+    border: 3px solid var(--white); box-shadow: 0 2px 6px rgba(229,32,42,0.4);
+    cursor: pointer; margin-top: 0;
+  }
+  .calc-card input[type="range"]::-moz-range-thumb {
+    width: 18px; height: 18px; border-radius: 50%; background: var(--red); border: 3px solid var(--white); cursor: pointer;
+  }
+  .calc-foot { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--grey-100); font-size: 12px; color: var(--grey-500); font-family: "Geist Mono", monospace; }
+
+  /* editable number fields */
+  .edit-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 0; border-top: 1px solid var(--grey-100); }
+  .edit-row:first-of-type { border-top: 0; padding-top: 4px; }
+  .edit-row label { font-size: 15px; color: var(--grey-700); font-weight: 500; }
+  .edit-field { display: flex; align-items: center; gap: 2px; background: var(--paper); border: 1px solid var(--grey-200); border-radius: 10px; padding: 9px 13px; transition: border-color .15s ease, box-shadow .15s ease; }
+  .edit-field:focus-within { border-color: var(--red); box-shadow: 0 0 0 3px rgba(229,32,42,0.15); }
+  .edit-field .pfx, .edit-field .sfx { font-family: "Geist Mono", monospace; font-size: 15px; color: var(--grey-500); font-weight: 600; }
+  .edit-field input { width: 62px; border: 0; background: transparent; font-family: "Geist Mono", monospace; font-size: 16px; font-weight: 600; color: var(--ink); text-align: right; padding: 0; }
+  .edit-field input:focus { outline: none; }
+  .edit-field--red input, .edit-field--red .pfx { color: var(--red); }
+  .edit-field input::-webkit-outer-spin-button, .edit-field input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .edit-field input[type="number"] { -moz-appearance: textfield; }
+
+  /* ----- TESTIMONIALS ----- */
+  .quotes {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+  @media (max-width: 900px) { .quotes { grid-template-columns: 1fr; } }
+  .quote {
+    background: var(--white); border: 1px solid var(--grey-200);
+    border-radius: var(--radius-lg); padding: 28px;
+    display: flex; flex-direction: column; gap: 18px;
+  }
+  .quote .mark { font-size: 36px; color: var(--red); line-height: 0.6; }
+  .quote blockquote {
+    margin: 0; font-size: 17px; line-height: 1.5; letter-spacing: -0.005em;
+    text-wrap: pretty;
+  }
+  .quote .who { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+  .quote .avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--grey-100); display: grid; place-items: center;
+    font-size: 12px; font-weight: 600; color: var(--grey-700);
+    font-family: "Geist Mono", monospace;
+  }
+  .quote .who small { display: block; font-size: 12px; color: var(--grey-500); }
+  .quote .who strong { display: block; font-size: 13px; font-weight: 600; }
+
+  /* ----- FAQ ----- */
+  .faq-grid { display: grid; grid-template-columns: 1.1fr 1.4fr; gap: clamp(28px, 5vw, 80px); }
+  @media (max-width: 900px) { .faq-grid { grid-template-columns: 1fr; } }
+  .faq-list { display: flex; flex-direction: column; }
+  details.faq {
+    border-top: 1px solid var(--grey-200);
+    padding: 22px 0;
+  }
+  details.faq:last-of-type { border-bottom: 1px solid var(--grey-200); }
+  details.faq summary {
+    list-style: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px;
+    font-size: clamp(18px, 1.6vw, 22px); font-weight: 500; letter-spacing: -0.01em;
+  }
+  details.faq summary::-webkit-details-marker { display: none; }
+  details.faq .plus {
+    width: 28px; height: 28px; border-radius: 50%;
+    border: 1px solid var(--grey-300);
+    display: grid; place-items: center; flex-shrink: 0;
+    transition: background .2s ease, border-color .2s ease, color .2s ease, transform .2s ease;
+  }
+  details.faq[open] .plus { background: var(--red); border-color: var(--red); color: var(--white); transform: rotate(45deg); }
+  details.faq .answer {
+    margin-top: 14px; color: var(--grey-700); font-size: 15px; max-width: 60ch;
+    line-height: 1.6;
+  }
+
+  /* ----- BIG CTA ----- */
+  .cta-band {
+    background: var(--red); color: var(--white);
+    border-radius: clamp(20px, 3vw, 32px);
+    margin: 0 var(--gutter);
+    padding: clamp(48px, 6vw, 90px) clamp(28px, 5vw, 72px);
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-band::before {
+    content: ""; position: absolute; right: -80px; top: -80px;
+    width: 320px; height: 320px; border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+  }
+  .cta-band::after {
+    content: ""; position: absolute; right: 60px; bottom: -120px;
+    width: 220px; height: 220px; border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+  }
+  .cta-inner { position: relative; max-width: 720px; }
+  .cta-band h2 { font-size: clamp(36px, 5.2vw, 64px); margin-bottom: 18px; color: var(--white); }
+  .cta-band p { font-size: clamp(16px, 1.4vw, 19px); opacity: 0.85; max-width: 540px; margin: 0 0 28px; }
+  .cta-band .store-btn { background: var(--white); color: var(--ink); }
+  .cta-band .store-btn:hover { background: var(--ink); color: var(--white); }
+
+  /* ----- FOOTER ----- */
+  footer {
+    padding: 80px 0 40px;
+  }
+  .foot-top {
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px;
+    padding-bottom: 56px;
+    border-bottom: 1px solid var(--grey-200);
+  }
+  @media (max-width: 800px) { .foot-top { grid-template-columns: 1fr 1fr; } }
+  .foot-top img, .foot-top svg { height: 24px; margin-bottom: 16px; display: block; }
+  .foot-top p { color: var(--grey-700); font-size: 14px; max-width: 280px; }
+  .foot-col h5 {
+    font-family: "Geist Mono", monospace;
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--grey-500); font-weight: 500; margin: 0 0 16px;
+  }
+  .foot-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+  .foot-col a { font-size: 14px; color: var(--grey-700); }
+  .foot-col a:hover { color: var(--ink); }
+  .foot-bot {
+    margin-top: 30px;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px;
+    font-size: 12px; color: var(--grey-500); font-family: "Geist Mono", monospace;
+  }
+  .foot-bot .made { display: inline-flex; align-items: center; gap: 8px; }
+  .foot-bot .made .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--red); }
+
+  /* ----- PLANS ----- */
+  .plans-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch; }
+  @media (max-width: 960px) { .plans-grid { grid-template-columns: 1fr; } }
+  .plan {
+    background: var(--white); border: 1px solid var(--grey-200);
+    border-radius: var(--radius-lg); padding: 32px;
+    display: flex; flex-direction: column; gap: 16px;
+    position: relative;
+    transition: transform .25s ease, border-color .25s ease;
+  }
+  .plan:hover { transform: translateY(-2px); border-color: var(--grey-300); }
+  .plan--featured { background: var(--ink); color: var(--white); border-color: var(--ink); }
+  .plan--featured:hover { border-color: var(--red); }
+  .plan-tag {
+    display: inline-block; font-size: 11px; letter-spacing: 0.08em;
+    color: var(--red); font-weight: 500; margin-bottom: 4px;
+  }
+  .plan--featured .plan-tag { color: var(--red); }
+  .plan h3 { font-size: 26px; font-weight: 600; margin: 0; letter-spacing: -0.02em; }
+  .plan-blurb { font-size: 14px; color: var(--grey-700); margin: 0; line-height: 1.55; min-height: 56px; }
+  .plan--featured .plan-blurb { color: rgba(255,255,255,0.7); }
+  .plan-list { list-style: none; padding: 0; margin: 8px 0 0; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .plan-list li {
+    font-size: 14px; color: var(--ink); padding-left: 22px; position: relative;
+  }
+  .plan-list li::before {
+    content: ""; position: absolute; left: 0; top: 7px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--red); opacity: 0.18;
+  }
+  .plan-list li::after {
+    content: ""; position: absolute; left: 3px; top: 10px;
+    width: 4px; height: 4px; border-radius: 50%; background: var(--red);
+  }
+  .plan--featured .plan-list li { color: rgba(255,255,255,0.88); }
+  .plan-foot {
+    margin-top: 18px; padding-top: 18px;
+    border-top: 1px solid var(--grey-100);
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  }
+  .plan--featured .plan-foot { border-top-color: rgba(255,255,255,0.1); }
+  .plan-price { font-size: 12px; letter-spacing: 0.06em; color: var(--grey-500); }
+  .plan--featured .plan-price { color: rgba(255,255,255,0.6); }
+  .plan-cta {
+    background: transparent; border: 0; padding: 0;
+    font-size: 14px; font-weight: 500; color: var(--ink);
+    border-bottom: 1px solid var(--ink); padding-bottom: 2px;
+  }
+  .plan-cta:hover { color: var(--red); border-color: var(--red); }
+  .plan--featured .plan-cta { color: var(--white); border-color: var(--white); }
+  .plan--featured .plan-cta:hover { color: var(--red); border-color: var(--red); }
+
+  /* Section header alignment helpers */
+  .row-between { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
+  .ghost-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--ink); font-weight: 500; font-size: 14px;
+    border-bottom: 1px solid var(--ink); padding-bottom: 2px;
+  }
+  .ghost-link:hover { color: var(--red); border-color: var(--red); }
+
+  /* ----- CONTACT FORM ----- */
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(28px, 5vw, 80px);
+    align-items: stretch;
+  }
+  @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
+  .contact-copy { display: flex; flex-direction: column; justify-content: center; }
+  .contact-copy h2 { margin-bottom: 18px; }
+  .contact-bullets {
+    list-style: none; padding: 0; margin: 24px 0 0;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .contact-bullets li {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 15px; color: var(--ink); font-weight: 500;
+  }
+  .contact-bullets li .num {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--red); color: var(--white);
+    display: grid; place-items: center; font-size: 12px; font-weight: 600;
+    font-family: "Geist Mono", monospace;
+    flex-shrink: 0;
+  }
+  .contact-card {
+    background: var(--ink); color: var(--white);
+    border-radius: var(--radius-lg);
+    padding: clamp(32px, 4vw, 48px);
+  }
+  .contact-card h3 { font-size: clamp(28px, 3vw, 36px); font-weight: 600; letter-spacing: -0.02em; margin: 0 0 8px; color: var(--white); }
+  .contact-card .contact-sub { font-size: 14px; color: rgba(255,255,255,0.65); margin: 0 0 28px; }
+  .field-block { margin-bottom: 14px; }
+  .field-label {
+    display: block; font-size: 11px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: rgba(255,255,255,0.5);
+    font-family: "Geist Mono", monospace;
+    margin-bottom: 6px;
+  }
+  .field-input {
+    width: 100%; border: 0;
+    background: var(--white); color: var(--ink);
+    padding: 16px 18px;
+    border-radius: 12px;
+    font: inherit; font-size: 15px;
+    transition: box-shadow .15s ease, transform .15s ease;
+  }
+  .field-input::placeholder { color: var(--grey-500); }
+  .field-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(229, 32, 42, 0.4);
+  }
+  .field-phone {
+    display: flex; align-items: center;
+    background: var(--white); border-radius: 12px;
+    overflow: hidden;
+  }
+  .field-phone .country {
+    display: flex; align-items: center; gap: 6px;
+    padding: 0 12px 0 16px;
+    border-right: 1px solid var(--grey-200);
+    height: 100%;
+    cursor: pointer;
+    font-size: 15px; color: var(--ink);
+  }
+  .field-phone .country .flag {
+    width: 22px; height: 16px; border-radius: 3px; overflow: hidden;
+    background: linear-gradient(
+      to bottom,
+      #B22234 0, #B22234 11%,
+      #fff 11%, #fff 23%,
+      #B22234 23%, #B22234 35%,
+      #fff 35%, #fff 46%,
+      #B22234 46%, #B22234 58%,
+      #fff 58%, #fff 69%,
+      #B22234 69%, #B22234 81%,
+      #fff 81%, #fff 92%,
+      #B22234 92%, #B22234 100%
+    );
+    position: relative; flex-shrink: 0;
+  }
+  .field-phone .country .flag::before {
+    content: ""; position: absolute; left: 0; top: 0;
+    width: 9px; height: 9px; background: #3C3B6E;
+  }
+  .field-phone .country .caret { font-size: 9px; color: var(--grey-500); }
+  .field-phone input {
+    flex: 1; border: 0; background: transparent;
+    padding: 16px 18px 16px 10px;
+    font: inherit; font-size: 15px; color: var(--ink);
+  }
+  .field-phone input:focus { outline: none; }
+  .field-phone:focus-within { box-shadow: 0 0 0 3px rgba(229, 32, 42, 0.4); }
+
+  .consent {
+    display: flex; align-items: flex-start; gap: 12px;
+    margin: 18px 0 22px;
+    font-size: 13px; color: rgba(255,255,255,0.7);
+    line-height: 1.5;
+    cursor: pointer;
+  }
+  .consent input { position: absolute; opacity: 0; pointer-events: none; }
+  .consent .box {
+    width: 18px; height: 18px; border-radius: 4px;
+    border: 1.5px solid rgba(255,255,255,0.35);
+    flex-shrink: 0; margin-top: 1px;
+    display: grid; place-items: center;
+    transition: background .15s ease, border-color .15s ease;
+  }
+  .consent input:checked + .box {
+    background: var(--red); border-color: var(--red);
+  }
+  .consent .box svg { opacity: 0; }
+  .consent input:checked + .box svg { opacity: 1; }
+  .consent .agree { color: var(--red); }
+  .consent a { color: rgba(255,255,255,0.9); text-decoration: underline; text-decoration-color: rgba(255,255,255,0.3); text-underline-offset: 3px; }
+
+  .btn-send {
+    width: 100%; border: 0; cursor: pointer;
+    background: var(--red); color: var(--white);
+    padding: 18px 22px; border-radius: 12px;
+    font: inherit; font-size: 15px; font-weight: 600; letter-spacing: -0.005em;
+    transition: background .15s ease, transform .15s ease;
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  }
+  .btn-send:hover { background: var(--red-700); transform: translateY(-1px); }
+  .btn-send .arrow { transition: transform .15s ease; }
+  .btn-send:hover .arrow { transform: translateX(3px); }
+  .form-foot {
+    margin-top: 16px;
+    font-size: 11px; color: rgba(255,255,255,0.45);
+    font-family: "Geist Mono", monospace; letter-spacing: 0.04em;
+    text-align: center;
+  }
+  .form-success {
+    display: none;
+    padding: 32px; text-align: center; color: var(--white);
+  }
+  .form-success.show { display: block; }
+  .form-success .check-big {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--red); margin: 0 auto 16px;
+    display: grid; place-items: center;
+  }
+
+  /* prevent layout shift for the dynamic value */
+  .calc-card .calc-out { font-variant-numeric: tabular-nums; }
+
+  /* ============ ANIMATION LAYER ============ */
+  /* scroll progress bar */
+  .scroll-prog {
+    position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+    background: var(--red); z-index: 60;
+    transition: width .1s linear;
+    box-shadow: 0 0 12px rgba(229,32,42,0.5);
+  }
+  /* nav condense on scroll */
+  .nav { transition: background .3s ease, box-shadow .3s ease, border-color .3s ease; }
+  .nav.scrolled {
+    box-shadow: 0 8px 30px -18px rgba(15,15,16,0.25);
+    border-bottom-color: transparent;
+  }
+  .nav.scrolled .nav-inner { height: 60px; }
+  .nav-inner { transition: height .3s ease; }
+
+  /* reveal-on-scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1);
+    will-change: opacity, transform;
+  }
+  .reveal.in { opacity: 1; transform: none; }
+  .reveal-scale { opacity: 0; transform: translateY(26px) scale(.97); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
+  .reveal-scale.in { opacity: 1; transform: none; }
+
+  /* phone gentle bob (decorative; base state is fully visible) */
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  .phone { animation: bob 6s ease-in-out 1.3s infinite; }
+
+  /* floating badges drift (decorative; base state visible) */
+  @keyframes badgeFloatA { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+  @keyframes badgeFloatB { 0%,100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
+  .badge-savings { animation: badgeFloatA 5s ease-in-out 1.5s infinite; }
+  .badge-alert { animation: badgeFloatB 6s ease-in-out 1.7s infinite; }
+
+  /* button shine sweep on store buttons */
+  .store-btn { position: relative; overflow: hidden; }
+  .store-btn::after {
+    content: ""; position: absolute; top: 0; left: -120%;
+    width: 60%; height: 100%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,0.25), transparent);
+    transform: skewX(-18deg);
+    transition: left .6s ease;
+  }
+  .store-btn:hover::after { left: 130%; }
+
+  /* card lift shadow refinement */
+  .step, .plan, .quote { transition: transform .3s cubic-bezier(.2,.7,.2,1), border-color .3s ease, box-shadow .3s ease; }
+  .step:hover, .quote:hover { box-shadow: 0 24px 50px -30px rgba(15,15,16,0.35); }
+  .plan:hover { box-shadow: 0 24px 50px -28px rgba(15,15,16,0.3); }
+
+  /* feature tile sweep */
+  .feat { transition: background .3s ease; position: relative; }
+  .feat:hover { background: #161618; }
+  .feat .glyph { transition: transform .3s cubic-bezier(.2,.7,.2,1), background .3s ease, color .3s ease; }
+  .feat:hover .glyph { transform: translateY(-3px) rotate(-6deg); background: var(--red); color: var(--white); }
+
+  /* big number subtle pulse on reveal */
+  @keyframes numGlow { 0% { text-shadow: 0 0 0 rgba(229,32,42,0); } 30% { text-shadow: 0 0 40px rgba(229,32,42,0.25); } 100% { text-shadow: 0 0 0 rgba(229,32,42,0); } }
+  .big-num.in-glow { animation: numGlow 2s ease; }
+
+  /* CTA band shimmer circles drift */
+  @keyframes drift { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-18px, 14px); } }
+  .cta-band::before { animation: drift 9s ease-in-out infinite; }
+  .cta-band::after { animation: drift 11s ease-in-out infinite reverse; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+    }
+    .reveal, .reveal-scale { opacity: 1 !important; transform: none !important; }
+  }
+</style>
+</head>
+<body>
+
+
+<div class="scroll-prog" id="scrollProg"></div>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="#" class="brand" data-comment-anchor="brand-logo">
+      <svg height="36" viewBox="0 0 148 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="halftank">
+        <!-- App icon mark -->
+        <defs>
+          <radialGradient id="nav-bg" cx="45%" cy="30%" r="65%">
+            <stop offset="0%" stop-color="#FF3B42"/>
+            <stop offset="100%" stop-color="#C8181F"/>
+          </radialGradient>
+        </defs>
+        <rect width="36" height="36" rx="8" fill="url(#nav-bg)"/>
+        <!-- .ht — dot represented as water drop -->
+        <path d="M10 9.5 C10 9.5 7 15.5 7 17.8 C7 20 8.35 21.5 10 21.5 C11.65 21.5 13 20 13 17.8 C13 15.5 10 9.5 10 9.5Z" fill="white"/>
+        <!-- h -->
+        <rect x="15" y="10" width="3" height="16" rx="1.3" fill="white"/>
+        <path d="M18 18.5 C18 15.5 24.5 15.5 24.5 18.5 L24.5 26 L21.5 26 L21.5 19.2 C21.5 18.2 18 18 18 18.5Z" fill="white"/>
+        <!-- t crossbar -->
+        <rect x="26" y="15.5" width="9" height="2.8" rx="1.3" fill="white"/>
+        <!-- t stem -->
+        <rect x="28.5" y="10" width="3" height="16" rx="1.3" fill="white"/>
+        <!-- wordmark -->
+        <text x="44" y="25.5" font-family="'Geist','Inter',system-ui,sans-serif" font-weight="700" font-size="19" fill="#0F0F10" letter-spacing="-0.4">halftank</text>
+      </svg>
+    </a>
+    <nav class="nav-links">
+      <a href="#how">How it works</a>
+      <a href="#features">Features</a>
+      <a href="#savings">Savings</a>
+      <a href="#plans">Plans</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="nav-cta" href="https://apps.apple.com/us/app/half-tank-app/id6746212709" target="_blank" rel="noopener">
+      <span class="dot"></span>
+      Get the app
+    </a>
+  </div>
+</header>
+
+<main>
+
+<!-- HERO -->
+<section class="hero" data-screen-label="01 Hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow"><span class="pulse"></span> Trusted by 7,000+ drivers · 3,000+ truck stops</span>
+      <h1 class="display" data-tweak-target="headline">Fueling efficiency. <em>Driving savings.</em></h1>
+      <p class="lede" data-tweak-target="subhead">The free halftank fuel card saves you up to $1 a gallon at participating stations nationwide. Pair it with the app to plan routes, find the cheapest stops on your way, and watch your fuel budget shrink.</p>
+
+      <div class="cta-row">
+        <a class="store-btn" href="https://apps.apple.com/us/app/half-tank-app/id6746212709" target="_blank" rel="noopener">
+          <span class="glyph" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 12.55c-.02-2.05 1.68-3.04 1.76-3.09-.96-1.41-2.46-1.6-2.99-1.62-1.27-.13-2.49.75-3.14.75-.66 0-1.65-.74-2.72-.72-1.4.02-2.69.81-3.41 2.06-1.46 2.52-.37 6.25 1.03 8.3.69 1 1.5 2.12 2.57 2.08 1.04-.04 1.43-.66 2.68-.66 1.25 0 1.6.66 2.7.64 1.12-.02 1.82-1.01 2.5-2.02.79-1.16 1.11-2.28 1.13-2.34-.02-.01-2.17-.83-2.19-3.3zM15.1 6.4c.57-.7.96-1.66.85-2.62-.83.04-1.84.56-2.44 1.25-.53.61-1 1.6-.88 2.55.93.07 1.88-.47 2.47-1.18z"/></svg>
+          </span>
+          <span>
+            <small>Download on the</small>
+            <strong>App Store</strong>
+          </span>
+        </a>
+        <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.metacraft.halftank" target="_blank" rel="noopener">
+          <span class="glyph" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 2.3C3.2 2.6 3 3.1 3 3.7v16.6c0 .7.2 1.2.6 1.5l10-9.9-10-9.6zm11.1 10.6 2.6 2.6-12.4 7.1 9.8-9.7zm4.3-2.5-2.7-1.5-3 3 3 3 2.7-1.5c1-.6 1-1.9 0-2.5l-.0001-.0001zM5.2 1.6l12.4 7.1-2.6 2.6-9.8-9.7z"/></svg>
+          </span>
+          <span>
+            <small>Get it on</small>
+            <strong>Google Play</strong>
+          </span>
+        </a>
+      </div>
+
+      <div class="meta-row">
+        <span><span class="check">✓</span> Free fuel card setup</span>
+        <span><span class="check">✓</span> 0% additional fees</span>
+        <span><span class="check">✓</span> 24/7 support</span>
+      </div>
+    </div>
+
+    <!-- PHONE MOCKUP -->
+    <div class="phone-wrap">
+      <div class="badge-float badge-savings">
+        <div class="icon">$</div>
+        <div>
+          <small>Cheapest on route</small>
+          <strong>$4.76 / gal</strong>
+        </div>
+      </div>
+      <div class="badge-float badge-alert">
+        <div class="icon">82</div>
+        <div>
+          <small>Stations on your route</small>
+          <strong>Orlando → OKC</strong>
+        </div>
+      </div>
+
+      <div class="phone" aria-label="halftank app preview">
+        <div class="phone-screen phone-screen--carousel">
+          <div class="carousel-track" id="carouselTrack">
+            <div class="carousel-slide"><img src="assets/app-1-splash.png" alt="halftank Fuel Finder — find the nearest fuel station fast" loading="eager" /></div>
+            <div class="carousel-slide"><img src="assets/app-2-home.png" alt="halftank home dashboard — Half Tank card, total transactions, gallons and savings" loading="lazy" /></div>
+            <div class="carousel-slide"><img src="assets/app-3-route.png" alt="halftank route planner — Chattanooga to Atlanta with live fuel prices mapped along the way" loading="lazy" /></div>
+            <div class="carousel-slide"><img src="assets/app-4-stations.png" alt="halftank gas stations list — 9 stations found along the route with prices and savings" loading="lazy" /></div>
+            <div class="carousel-slide"><img src="assets/app-5-transactions.png" alt="halftank transactions — fuel purchases with fees and savings per fill-up" loading="lazy" /></div>
+          </div>
+          <div class="carousel-dots" id="carouselDots" role="tablist" aria-label="App screens"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="wrap">
+    <div class="stats">
+      <div class="stats-grid">
+        <div class="stat"><div class="num">Up to <span class="red"><span class="cnt" data-to="1" data-pre="$">$1</span></span></div><div class="lbl">Saved per gallon at the pump</div></div>
+        <div class="stat"><div class="num"><span class="cnt" data-to="3000" data-fmt="comma">3,000</span><span class="red">+</span></div><div class="lbl">Truck stops in the network</div></div>
+        <div class="stat"><div class="num"><span class="cnt" data-to="7000" data-fmt="comma">7,000</span><span class="red">+</span></div><div class="lbl">Drivers fueling smarter</div></div>
+        <div class="stat"><div class="num"><span class="cnt" data-to="0">0</span><span class="red">%</span></div><div class="lbl">Hidden or additional fees</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" data-screen-label="02 How it works">
+  <div class="wrap">
+    <div class="sect-head">
+      <span class="sect-eyebrow">How it works</span>
+      <h2>Three steps from sign-up to savings.</h2>
+      <p class="sect-lede">No paperwork, no setup fee, no waiting. Pick the fuel card that fits how you drive, swipe at participating stations, and watch your fuel costs go down.</p>
+    </div>
+
+    <div class="steps">
+      <article class="step">
+        <span class="step-num">01 / Sign up</span>
+        <h3>Create your account.</h3>
+        <p>Pick the fuel card that fits how you drive — solo driver, small fleet, or large fleet. Setup is free and takes about 90 seconds.</p>
+        <div class="step-visual">
+          <div class="frame">
+            <div class="field"><span class="pin"></span> Individual driver</div>
+            <div class="field dest"><span class="pin"></span> Small fleet (up to 5) <span class="caret"></span></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="step">
+        <span class="step-num">02 / Fuel up</span>
+        <h3>Swipe at any participating stop.</h3>
+        <p>Use your halftank card at 3,000+ truck stops across the US — or pay without the physical card from inside the app.</p>
+        <div class="step-visual">
+          <div class="frame">
+            <div class="map-mini">
+              <svg viewBox="0 0 300 120" preserveAspectRatio="none">
+                <path d="M 10 100 C 60 80, 100 30, 160 50 S 260 30, 290 20" stroke="rgba(229,32,42,0.18)" stroke-width="8" fill="none" stroke-linecap="round" />
+                <path d="M 10 100 C 60 80, 100 30, 160 50 S 260 30, 290 20" stroke="#E5202A" stroke-width="3" fill="none" stroke-linecap="round" />
+                <circle cx="80" cy="68" r="5" fill="#0F0F10" />
+                <circle cx="170" cy="48" r="6" fill="#E5202A" stroke="white" stroke-width="2" />
+                <circle cx="240" cy="32" r="5" fill="#0F0F10" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="step">
+        <span class="step-num">03 / Save</span>
+        <h3>Track every gallon saved.</h3>
+        <p>Watch your spend and discounts add up in real time. Export PDF or Excel reports any time you need them — expensing, accounting, taxes.</p>
+        <div class="step-visual">
+          <div class="frame">
+            <div class="compare">
+              <div class="row best">
+                <span class="name">Saved this month</span>
+                <span class="price">$184.20</span>
+                <span class="tag">+12%</span>
+              </div>
+              <div class="row">
+                <span class="name">Fills logged</span>
+                <span class="price">23</span>
+                <span class="tag">AUTO</span>
+              </div>
+              <div class="row">
+                <span class="name">Avg. price / gal</span>
+                <span class="price">$3.61</span>
+                <span class="tag">−7%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES (dark panel) -->
+<section id="features" style="padding: 0;" data-screen-label="03 Features">
+  <div class="features">
+    <div class="wrap">
+      <div class="sect-head">
+        <span class="sect-eyebrow">Why choose halftank</span>
+        <h2>Built for the way drivers actually drive.</h2>
+        <p class="sect-lede">Six things the app does, none of them filler. Real-time trip insight, the cheapest stations on your line, and clean reports when you need them.</p>
+      </div>
+      <div class="feat-grid">
+        <div class="feat"><div class="glyph">⌀</div><h3>Real-time trip insights</h3><p>See how many miles you have left, how much time remains to your next fill-up, and plan your stops with confidence.</p></div>
+        <div class="feat"><div class="glyph">◎</div><h3>Nearby fuel stations</h3><p>View every station inside the radius you set, so you never have to worry about running low — wherever you are.</p></div>
+        <div class="feat"><div class="glyph">▤</div><h3>Card &amp; extras management</h3><p>Access your fuel cards, add extra services, and customize your fueling experience to fit how you actually drive.</p></div>
+        <div class="feat"><div class="glyph">▦</div><h3>Intuitive dashboard</h3><p>Total fuel spend, discounts earned, detailed reports — all in an interface that doesn't require a manual.</p></div>
+        <div class="feat"><div class="glyph">$</div><h3>Transparent transactions</h3><p>Track every fuel purchase, monitor your spending, and keep your budget under control right from the app.</p></div>
+        <div class="feat"><div class="glyph">↪</div><h3>Smart route fuel finder</h3><p>Enter your destination and instantly discover fuel stations along your route, making long drives smoother and stress-free.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SAVINGS / CALCULATOR -->
+<section id="savings" data-screen-label="04 Savings">
+  <div class="wrap">
+    <div class="row-between" style="margin-bottom: clamp(36px, 5vw, 64px);">
+      <div class="sect-head" style="margin-bottom: 0;">
+        <span class="sect-eyebrow">The math</span>
+        <h2>Most drivers save more than the app costs.</h2>
+        <p class="sect-lede">(Spoiler: the app is free.) Punch in your own numbers below to see your discount per gallon and what you'd pocket.</p>
+      </div>
+    </div>
+
+    <div class="savings-grid">
+      <div class="savings-breakdown">
+        <div class="sb-pct"><span id="sbPct">14</span><span class="sign">%</span>
+          <span class="sb-sub">off every gallon with halftank</span>
+        </div>
+        <div class="sb-lines">
+          <div class="sb-line">
+            <span class="sb-label">You save / gal</span>
+            <span class="sb-val sb-val--red" id="sbPerGal">$0.50</span>
+          </div>
+          <div class="sb-line sb-line--total">
+            <span class="sb-label">Total discount</span>
+            <span class="sb-total" id="sbTotal">$20</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="calc-card">
+        <h4>Edit your numbers</h4>
+        <div class="edit-row">
+          <label for="inRetail">Retail price / gal</label>
+          <div class="edit-field"><span class="pfx">$</span><input id="inRetail" type="number" inputmode="decimal" step="0.01" min="0" value="3.55" aria-label="Retail price per gallon" /></div>
+        </div>
+        <div class="edit-row">
+          <label for="inHt">halftank price / gal</label>
+          <div class="edit-field edit-field--red"><span class="pfx">$</span><input id="inHt" type="number" inputmode="decimal" step="0.01" min="0" value="3.05" aria-label="halftank price per gallon" /></div>
+        </div>
+        <div class="edit-row">
+          <label for="inGal">Gallons</label>
+          <div class="edit-field"><input id="inGal" type="number" inputmode="numeric" step="1" min="0" value="40" aria-label="Gallons" /><span class="sfx">gal</span></div>
+        </div>
+        <div class="calc-foot">Edit any field — your discount per gallon, % saving, and total update instantly.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANS -->
+<section id="plans" style="padding-top: 0;" data-screen-label="05 Plans">
+  <div class="wrap">
+    <div class="sect-head">
+      <span class="sect-eyebrow">Fuel savings plans</span>
+      <h2>Pick the plan that fits how you drive.</h2>
+      <p class="sect-lede">All halftank plans include the free fuel card, the mobile app, and 24/7 support. Differences are about the size of what you're fueling.</p>
+    </div>
+
+    <div class="plans-grid">
+      <article class="plan">
+        <div class="plan-tag mono">FOR SOLO DRIVERS</div>
+        <h3>Individual Driver</h3>
+        <p class="plan-blurb">Save on every fill-up with discounted fuel rates. Perfect for daily commuters, rideshare drivers, and one-truck owner-operators.</p>
+        <ul class="plan-list">
+          <li>Discounted fuel at 3,000+ truck stops</li>
+          <li>Mobile app with trip planner</li>
+          <li>Find cheapest stations on your route</li>
+          <li>Online PIN setup &amp; security controls</li>
+        </ul>
+        <div class="plan-foot">
+          <span class="plan-price mono">FREE setup</span>
+          <button class="plan-cta" type="button">Get started →</button>
+        </div>
+      </article>
+
+      <article class="plan plan--featured">
+        <div class="plan-tag mono">MOST POPULAR</div>
+        <h3>Small Fleet</h3>
+        <p class="plan-blurb">Manage fuel for up to 5 vehicles with fleet-specific discounts, multi-card management, and reporting that actually makes sense.</p>
+        <ul class="plan-list">
+          <li>Everything in Individual</li>
+          <li>Up to 5 vehicle cards</li>
+          <li>Pay without a physical card</li>
+          <li>PDF &amp; Excel expense reports</li>
+          <li>Referral bonus on every invite</li>
+        </ul>
+        <div class="plan-foot">
+          <span class="plan-price mono">FREE setup · 0% fees</span>
+          <button class="plan-cta" type="button">Get started →</button>
+        </div>
+      </article>
+
+      <article class="plan">
+        <div class="plan-tag mono">FOR FLEETS</div>
+        <h3>Large Fleet</h3>
+        <p class="plan-blurb">Maximize savings across your whole operation with custom discounts, detailed reporting, and a dedicated account manager.</p>
+        <ul class="plan-list">
+          <li>Everything in Small Fleet</li>
+          <li>Custom volume discounts</li>
+          <li>Credit line up to $5,000 per card</li>
+          <li>Prepayment option for delivery</li>
+          <li>Dedicated account manager</li>
+        </ul>
+        <div class="plan-foot">
+          <span class="plan-price mono">Talk to sales</span>
+          <button class="plan-cta" type="button">Request a call →</button>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section style="padding-top: 0;" data-screen-label="06 Voices">
+  <div class="wrap">
+    <div class="sect-head">
+      <span class="sect-eyebrow">Drivers on halftank</span>
+      <h2>What people say after a month.</h2>
+    </div>
+    <div class="quotes">
+      <div class="quote">
+        <div class="mark">“</div>
+        <blockquote>The card paid for itself the first week. I run two trucks and the reporting alone saved me an evening every month doing the books.</blockquote>
+        <div class="who">
+          <div class="avatar">DT</div>
+          <div><strong>Daniel T.</strong><small>Owner-operator · small fleet</small></div>
+        </div>
+      </div>
+      <div class="quote">
+        <div class="mark">“</div>
+        <blockquote>I plug in my destination, the app tells me which stop is cheapest, I swipe the card, done. No loyalty hoops, no app-juggling at 2am.</blockquote>
+        <div class="who">
+          <div class="avatar">MR</div>
+          <div><strong>Maya R.</strong><small>Long-haul driver · individual</small></div>
+        </div>
+      </div>
+      <div class="quote">
+        <div class="mark">“</div>
+        <blockquote>Switched our 14-truck fleet over. Custom rate, dedicated account manager, and one dashboard for everything. Easier than what we had before. Cheaper, too.</blockquote>
+        <div class="who">
+          <div class="avatar">PV</div>
+          <div><strong>Priya V.</strong><small>Operations lead · large fleet</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="padding-top: 0;" data-screen-label="07 FAQ">
+  <div class="wrap">
+    <div class="faq-grid">
+      <div>
+        <span class="sect-eyebrow">Frequently asked</span>
+        <h2>The honest answers.</h2>
+        <p class="sect-lede" style="margin-top: 14px;">Still curious? Email <a href="#" style="color: var(--red);">hello@halftankapp.com</a> — a real person, usually within a day.</p>
+      </div>
+      <div class="faq-list">
+        <details class="faq" open>
+          <summary>How much does the halftank fuel card cost?<span class="plus" aria-hidden="true">+</span></summary>
+          <div class="answer">Setup is free. There are no monthly fees and no hidden charges — you pay only for the fuel you buy. The card pays for itself the first time you use it.</div>
+        </details>
+        <details class="faq">
+          <summary>How much can I really save per gallon?<span class="plus" aria-hidden="true">+</span></summary>
+          <div class="answer">Up to $1 per gallon at participating stations. Actual savings depend on where you fuel, when, and how much. Drivers on the platform average a meaningful double-digit reduction on monthly fuel spend.</div>
+        </details>
+        <details class="faq">
+          <summary>Where can I use the card?<span class="plus" aria-hidden="true">+</span></summary>
+          <div class="answer">At 3,000+ participating truck stops across the United States. The app shows you which ones, and the Smart Route Fuel Finder highlights the cheapest stops along your destination.</div>
+        </details>
+        <details class="faq">
+          <summary>Do I need the physical card?<span class="plus" aria-hidden="true">+</span></summary>
+          <div class="answer">No. You can pay without the physical card directly from the app — handy if you lost it, forgot it, or just prefer mobile. Online PIN setup and security controls keep it locked down.</div>
+        </details>
+        <details class="faq">
+          <summary>What if I run a fleet?<span class="plus" aria-hidden="true">+</span></summary>
+          <div class="answer">Small Fleet covers up to 5 vehicles with shared reporting and discounts. Large Fleet adds custom volume rates, a credit line up to $5,000 per card, prepayment options, and a dedicated account manager.</div>
+        </details>
+        <details class="faq">
+          <summary>Can I export my fuel records?<span class="plus" aria-hidden="true">+</span></summary>
+          <div class="answer">Yes — PDF and Excel reports any time, broken down by card, driver, or vehicle. Great for expensing, accounting, and tax season.</div>
+        </details>
+        <details class="faq">
+          <summary>How do I get help if something goes wrong?<span class="plus" aria-hidden="true">+</span></summary>
+          <div class="answer">24/7 support — a real person, not a chatbot. Hit "Request a call" anywhere on the site and a manager will be in touch within 5 minutes during business hours.</div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / REQUEST A CALL -->
+<section id="contact" style="padding-top: 0;" data-screen-label="08 Contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="contact-copy">
+        <span class="sect-eyebrow">Talk to a human</span>
+        <h2>Have questions? We'll call you back.</h2>
+        <p class="sect-lede">A real account manager — not a bot — will reach out within five minutes during business hours. Drop your number, we'll do the rest.</p>
+        <ul class="contact-bullets">
+          <li><span class="num">1</span> Tell us a bit about your driving or fleet</li>
+          <li><span class="num">2</span> We match you to the right plan and card</li>
+          <li><span class="num">3</span> You start saving on the next tank</li>
+        </ul>
+      </div>
+
+      <div class="contact-card">
+        <form id="contact-form" novalidate>
+          <h3>Request a call</h3>
+          <p class="contact-sub">The manager will contact you within 5 minutes.</p>
+
+          <div class="field-block">
+            <label class="field-label" for="f-name">Your name</label>
+            <input class="field-input" id="f-name" name="name" type="text" placeholder="e.g. Daniel Tomas" autocomplete="name" required />
+          </div>
+
+          <div class="field-block">
+            <label class="field-label" for="f-phone">Phone</label>
+            <div class="field-phone">
+              <span class="country" aria-hidden="true">
+                <span class="flag"></span>
+                <span>+1</span>
+                <span class="caret">▼</span>
+              </span>
+              <input id="f-phone" name="phone" type="tel" placeholder="(000) 000-0000" autocomplete="tel" required />
+            </div>
+          </div>
+
+          <div class="field-block">
+            <label class="field-label" for="f-email">Email</label>
+            <input class="field-input" id="f-email" name="email" type="email" placeholder="you@company.com" autocomplete="email" />
+          </div>
+
+          <div class="field-block">
+            <label class="field-label" for="f-plan">I'm interested in</label>
+            <select class="field-input" id="f-plan" name="plan" style="appearance: none; background-image: linear-gradient(45deg, transparent 50%, #0F0F10 50%), linear-gradient(135deg, #0F0F10 50%, transparent 50%); background-position: calc(100% - 22px) 50%, calc(100% - 17px) 50%; background-size: 5px 5px, 5px 5px; background-repeat: no-repeat; padding-right: 40px;">
+              <option>Individual driver</option>
+              <option>Small fleet (up to 5 vehicles)</option>
+              <option>Large fleet</option>
+              <option>Just curious</option>
+            </select>
+          </div>
+
+          <label class="consent">
+            <input type="checkbox" id="f-consent" required />
+            <span class="box"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span>I <span class="agree">agree</span> to Half Tank sending me SMS text messages. See our <a href="#">privacy policy</a>.</span>
+          </label>
+
+          <button type="submit" class="btn-send">
+            Send
+            <svg class="arrow" width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M1 5h12m-4-4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+
+          <div class="form-foot">FREE SETUP · 0% FEES · NO SPAM — EVER</div>
+        </form>
+
+        <div id="form-success" class="form-success">
+          <div class="check-big"><svg width="22" height="16" viewBox="0 0 22 16" fill="none"><path d="M1 8l7 7 13-14" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3 style="margin: 0 0 8px;">Got it. Sit tight.</h3>
+          <p class="contact-sub" style="margin: 0;">A halftank manager will be in touch within 5 minutes during business hours.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BIG CTA BAND -->
+<section style="padding: 0 0 clamp(64px, 9vw, 130px);" data-screen-label="08 CTA">
+  <div class="cta-band">
+    <div class="cta-inner">
+      <span class="sect-eyebrow" style="color: rgba(255,255,255,0.8);">Get the app</span>
+      <h2>Your next tank should cost less.</h2>
+      <p>One install. Done in 90 seconds. Free forever for drivers.</p>
+      <div class="cta-row">
+        <a class="store-btn" href="https://apps.apple.com/us/app/half-tank-app/id6746212709" target="_blank" rel="noopener">
+          <span class="glyph" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 12.55c-.02-2.05 1.68-3.04 1.76-3.09-.96-1.41-2.46-1.6-2.99-1.62-1.27-.13-2.49.75-3.14.75-.66 0-1.65-.74-2.72-.72-1.4.02-2.69.81-3.41 2.06-1.46 2.52-.37 6.25 1.03 8.3.69 1 1.5 2.12 2.57 2.08 1.04-.04 1.43-.66 2.68-.66 1.25 0 1.6.66 2.7.64 1.12-.02 1.82-1.01 2.5-2.02.79-1.16 1.11-2.28 1.13-2.34-.02-.01-2.17-.83-2.19-3.3zM15.1 6.4c.57-.7.96-1.66.85-2.62-.83.04-1.84.56-2.44 1.25-.53.61-1 1.6-.88 2.55.93.07 1.88-.47 2.47-1.18z"/></svg>
+          </span>
+          <span>
+            <small>Download on the</small>
+            <strong>App Store</strong>
+          </span>
+        </a>
+        <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.metacraft.halftank" target="_blank" rel="noopener">
+          <span class="glyph" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 2.3C3.2 2.6 3 3.1 3 3.7v16.6c0 .7.2 1.2.6 1.5l10-9.9-10-9.6zm11.1 10.6 2.6 2.6-12.4 7.1 9.8-9.7zm4.3-2.5-2.7-1.5-3 3 3 3 2.7-1.5c1-.6 1-1.9 0-2.5zM5.2 1.6l12.4 7.1-2.6 2.6-9.8-9.7z"/></svg>
+          </span>
+          <span>
+            <small>Get it on</small>
+            <strong>Google Play</strong>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <svg height="30" viewBox="0 0 148 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="halftank">
+          <defs>
+            <radialGradient id="foot-bg" cx="45%" cy="30%" r="65%">
+              <stop offset="0%" stop-color="#FF3B42"/>
+              <stop offset="100%" stop-color="#C8181F"/>
+            </radialGradient>
+          </defs>
+          <rect width="36" height="36" rx="8" fill="url(#foot-bg)"/>
+          <path d="M10 9.5 C10 9.5 7 15.5 7 17.8 C7 20 8.35 21.5 10 21.5 C11.65 21.5 13 20 13 17.8 C13 15.5 10 9.5 10 9.5Z" fill="white"/>
+          <rect x="15" y="10" width="3" height="16" rx="1.3" fill="white"/>
+          <path d="M18 18.5 C18 15.5 24.5 15.5 24.5 18.5 L24.5 26 L21.5 26 L21.5 19.2 C21.5 18.2 18 18 18 18.5Z" fill="white"/>
+          <rect x="26" y="15.5" width="9" height="2.8" rx="1.3" fill="white"/>
+          <rect x="28.5" y="10" width="3" height="16" rx="1.3" fill="white"/>
+          <text x="44" y="25.5" font-family="'Geist','Inter',system-ui,sans-serif" font-weight="700" font-size="19" fill="#0F0F10" letter-spacing="-0.4">halftank</text>
+        </svg>
+        <p>The honest fuel app. Plan your route, pay less at the pump, keep your data to yourself.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Product</h5>
+        <ul>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#plans">Plans</a></li>
+          <li><a href="#">Halftank for fleets</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Press kit</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">Cookies</a></li>
+          <li><a href="#">Security</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© 2026 halftank, inc.</span>
+      <span class="made"><span class="dot"></span> made for drivers, not for algorithms</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ============ ANIMATION CONTROLLER ============
+  (function() {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // ---- scroll progress + nav condense ----
+    const prog = document.getElementById('scrollProg');
+    const nav = document.querySelector('.nav');
+    function onScroll() {
+      const h = document.documentElement;
+      const max = h.scrollHeight - h.clientHeight;
+      const pct = max > 0 ? (h.scrollTop || document.body.scrollTop) / max * 100 : 0;
+      if (prog) prog.style.width = pct + '%';
+      if (nav) nav.classList.toggle('scrolled', (h.scrollTop || document.body.scrollTop) > 12);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // ---- tag elements for reveal + stagger ----
+    const groups = [
+      ['.hero-copy > *', 90],
+      ['.sect-head', 0],
+      ['.steps .step', 90],
+      ['.feat-grid .feat', 70],
+      ['.plans-grid .plan', 90],
+      ['.quotes .quote', 90],
+      ['.faq-list .faq', 60],
+      ['.stats-grid .stat', 80],
+      ['.contact-copy', 0],
+      ['.contact-card', 0],
+      ['.savings-grid > div', 100],
+      ['.cta-inner', 0],
+      ['.foot-top > *', 60],
+    ];
+    groups.forEach(([sel, stagger]) => {
+      document.querySelectorAll(sel).forEach((el, i) => {
+        el.classList.add('reveal');
+        if (stagger) el.style.transitionDelay = (i * stagger) + 'ms';
+      });
+    });
+    // phone + floating badges use a scale reveal
+    document.querySelectorAll('.phone, .badge-savings, .badge-alert').forEach((el, i) => {
+      el.classList.add('reveal-scale');
+      el.style.transitionDelay = (180 + i * 140) + 'ms';
+    });
+
+    if (reduce) {
+      document.querySelectorAll('.reveal, .reveal-scale').forEach(el => el.classList.add('in'));
+    } else {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+      document.querySelectorAll('.reveal, .reveal-scale').forEach(el => io.observe(el));
+    }
+
+    // ---- animated stat counters ----
+    function animateCount(el) {
+      const to = parseFloat(el.dataset.to || '0');
+      const pre = el.dataset.pre || '';
+      const suf = el.dataset.suf || '';
+      const comma = el.dataset.fmt === 'comma';
+      if (reduce || to === 0) { el.textContent = pre + (comma ? to.toLocaleString() : to) + suf; return; }
+      const dur = 1400; const start = performance.now();
+      function tick(now) {
+        const t = Math.min(1, (now - start) / dur);
+        const eased = 1 - Math.pow(1 - t, 3);
+        const val = Math.round(to * eased);
+        el.textContent = pre + (comma ? val.toLocaleString() : val) + suf;
+        if (t < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+    const statsWrap = document.querySelector('.stats-grid');
+    if (statsWrap) {
+      const so = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            statsWrap.querySelectorAll('.cnt').forEach(animateCount);
+            so.disconnect();
+          }
+        });
+      }, { threshold: 0.4 });
+      so.observe(statsWrap);
+    }
+
+    // ---- big savings number glow on reveal ----
+    const bigNumWrap = document.querySelector('.sb-pct');
+    if (bigNumWrap && !reduce) {
+      const go = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) { bigNumWrap.classList.add('in-glow'); go.disconnect(); }
+        });
+      }, { threshold: 0.5 });
+      go.observe(bigNumWrap);
+    }
+
+    // ---- smooth-scroll for in-page nav anchors ----
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href');
+        if (id.length < 2) return;
+        const target = document.querySelector(id);
+        if (target) {
+          e.preventDefault();
+          const y = target.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' });
+        }
+      });
+    });
+  })();
+</script>
+
+<script>
+  // ============ HERO CAROUSEL ============
+  (function() {
+    const track = document.getElementById('carouselTrack');
+    const dotsWrap = document.getElementById('carouselDots');
+    if (!track || !dotsWrap) return;
+    const slides = track.querySelectorAll('.carousel-slide');
+    const count = slides.length;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let idx = 0;
+    let timer = null;
+    const INTERVAL = 3000;
+
+    // build dots
+    const dots = [];
+    for (let i = 0; i < count; i++) {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('role', 'tab');
+      b.setAttribute('aria-label', 'Show app screen ' + (i + 1));
+      if (i === 0) b.classList.add('active');
+      b.addEventListener('click', () => { go(i); restart(); });
+      dotsWrap.appendChild(b);
+      dots.push(b);
+    }
+
+    function go(n) {
+      idx = (n + count) % count;
+      track.style.transform = 'translateX(' + (-idx * 100) + '%)';
+      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    }
+    function next() { go(idx + 1); }
+    function start() { if (!reduce) timer = setInterval(next, INTERVAL); }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+    function restart() { stop(); start(); }
+
+    // pause on hover / when tab hidden
+    const phone = track.closest('.phone-wrap') || track;
+    phone.addEventListener('mouseenter', stop);
+    phone.addEventListener('mouseleave', start);
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stop(); else start();
+    });
+
+    start();
+  })();
+</script>
+
+<script>
+  // Contact form — validate, send to Telegram, show success
+  (function() {
+    const TELEGRAM_BOT_TOKEN = '8009484391:AAEhOFIOE9waqe3q4yySmQU6r5pRW_DKvjk';
+    const TELEGRAM_CHAT_ID   = '1315279506';
+
+    const form    = document.getElementById('contact-form');
+    const success = document.getElementById('form-success');
+    const sendBtn = form ? form.querySelector('.btn-send') : null;
+    if (!form) return;
+
+    function shake(el) {
+      el.animate(
+        [{ transform: 'translateX(0)' }, { transform: 'translateX(-6px)' },
+         { transform: 'translateX(6px)' }, { transform: 'translateX(0)' }],
+        { duration: 240 }
+      );
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name    = form.querySelector('#f-name').value.trim();
+      const phone   = form.querySelector('#f-phone').value.trim();
+      const email   = form.querySelector('#f-email').value.trim();
+      const plan    = form.querySelector('#f-plan').value;
+      const consent = form.querySelector('#f-consent').checked;
+
+      let valid = true;
+      form.querySelectorAll('input[required]').forEach(el => {
+        if (!el.value.trim() || (el.type === 'checkbox' && !el.checked)) {
+          shake(el.closest('.field-block, .consent'));
+          valid = false;
+        }
+      });
+      if (!valid) return;
+
+      // Disable button while sending
+      sendBtn.disabled = true;
+      sendBtn.textContent = 'Sending…';
+
+      const text =
+        `📋 *New halftank lead*\n` +
+        `👤 Name: ${name}\n` +
+        `📞 Phone: +1 ${phone}\n` +
+        `📧 Email: ${email || '—'}\n` +
+        `🚗 Interested in: ${plan}`;
+
+      try {
+        const res = await fetch(
+          `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              chat_id: TELEGRAM_CHAT_ID,
+              text,
+              parse_mode: 'Markdown'
+            })
+          }
+        );
+        if (!res.ok) throw new Error('Telegram API error');
+      } catch (err) {
+        console.error('Telegram send failed:', err);
+      }
+
+      form.style.display = 'none';
+      success.classList.add('show');
+    });
+  })();
+</script>
+
+<script>
+  // Savings — editable fields drive the live breakdown
+  (function() {
+    const inRetail = document.getElementById('inRetail');
+    const inHt = document.getElementById('inHt');
+    const inGal = document.getElementById('inGal');
+    const sbPct = document.getElementById('sbPct');
+    const sbPerGal = document.getElementById('sbPerGal');
+    const sbTotal = document.getElementById('sbTotal');
+    if (!inRetail) return;
+
+    function compute() {
+      const retail = Math.max(0, parseFloat(inRetail.value) || 0);
+      let ht = Math.max(0, parseFloat(inHt.value) || 0);
+      const gal = Math.max(0, parseFloat(inGal.value) || 0);
+      const disc = Math.max(0, retail - ht);            // discount per gallon
+      const pct = retail > 0 ? Math.round(disc / retail * 100) : 0;
+      const total = Math.round(gal * disc);
+
+      sbPct.textContent = pct;
+      sbPerGal.textContent = '$' + disc.toFixed(2);
+      sbTotal.textContent = '$' + total.toLocaleString();
+    }
+    [inRetail, inHt, inGal].forEach(el => el.addEventListener('input', compute));
+    compute();
+  })();
+
+</script>
+
+</body>
+</html>
